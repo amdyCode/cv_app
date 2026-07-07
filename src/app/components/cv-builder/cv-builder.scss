@@ -1,0 +1,32 @@
+.builder-container {
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  gap: var(--spacing-xl);
+  padding: var(--spacing-lg);
+  height: 100vh;
+  overflow: hidden;
+}
+
+.form-pane {
+  overflow-y: auto;
+  padding: var(--spacing-lg);
+  display: flex;
+  flex-direction: column;
+}
+
+.preview-pane {
+  overflow-y: auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: var(--spacing-lg);
+  padding-bottom: var(--spacing-lg);
+}
+
+@media (max-width: 1024px) {
+  .builder-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: 50vh 50vh;
+    overflow-y: auto;
+  }
+}

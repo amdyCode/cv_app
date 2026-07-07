@@ -1,12 +1,12 @@
 import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { CvBuilder } from './components/cv-builder/cv-builder';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [CvBuilder],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
 export class App {
-  protected readonly title = signal('cv_app');
+  protected readonly title = signal('CV Generator');
 }

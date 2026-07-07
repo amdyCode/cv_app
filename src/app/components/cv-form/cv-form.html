@@ -1,0 +1,267 @@
+<div class="form-container">
+  <h2>Enter Your Details</h2>
+
+  <form [formGroup]="cvForm" class="cv-form">
+
+    <!-- Theme Color -->
+    <div class="form-section">
+      <h3>Theme Customization</h3>
+      <div class="form-group">
+        <label for="themeColor">Accent Color</label>
+        <div class="color-picker-container">
+          <input type="color" id="themeColor" formControlName="themeColor" class="color-picker">
+          <span class="color-hint">Choose your resume's accent color</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Personal Info -->
+    <div formGroupName="personalInfo" class="form-section">
+      <h3>Personal Information</h3>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="fullName">Full Name</label>
+          <input id="fullName" type="text" formControlName="fullName" placeholder="John Doe">
+        </div>
+
+        <div class="form-group">
+          <label for="jobTitle">Job Title</label>
+          <input id="jobTitle" type="text" formControlName="jobTitle" placeholder="Frontend Developer">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="subtitle">Subtitle</label>
+          <input id="subtitle" type="text" formControlName="subtitle" placeholder="Looking for a 4-month internship...">
+        </div>
+
+        <div class="form-group">
+          <label for="photoUrl">Photo URL</label>
+          <input id="photoUrl" type="text" formControlName="photoUrl" placeholder="https://example.com/photo.jpg">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="age">Age</label>
+          <input id="age" type="text" formControlName="age" placeholder="24">
+        </div>
+
+        <div class="form-group">
+          <label for="location">Location</label>
+          <input id="location" type="text" formControlName="location" placeholder="Montpellier, France">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input id="email" type="email" formControlName="email" placeholder="john@example.com">
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone</label>
+          <input id="phone" type="tel" formControlName="phone" placeholder="+1 234 567 890">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="github">GitHub</label>
+          <input id="github" type="text" formControlName="github" placeholder="john-doe">
+        </div>
+
+        <div class="form-group">
+          <label for="social">Social / Handle</label>
+          <input id="social" type="text" formControlName="social" placeholder="@john-app">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="summary">Summary</label>
+        <textarea id="summary" formControlName="summary" rows="4" placeholder="A brief summary about yourself..."></textarea>
+      </div>
+    </div>
+
+    <!-- Experiences -->
+    <div formArrayName="experiences" class="form-section">
+      <div class="section-header">
+        <h3>Experience</h3>
+        <button type="button" class="btn-add" (click)="addExperience()">+ Add</button>
+      </div>
+
+      @for (exp of experiences.controls; track exp.value.id; let i = $index) {
+        <div [formGroupName]="i" class="array-item">
+          <div class="item-header">
+            <h4>Experience {{ i + 1 }}</h4>
+            <button type="button" class="btn-remove" (click)="removeExperience(i)">Remove</button>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Company</label>
+              <input type="text" formControlName="company">
+            </div>
+            <div class="form-group">
+              <label>Position</label>
+              <input type="text" formControlName="position">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Start Date</label>
+              <input type="text" formControlName="startDate" placeholder="Jan 2020">
+            </div>
+            <div class="form-group">
+              <label>End Date</label>
+              <input type="text" formControlName="endDate" placeholder="Present">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Description (Use newlines for bullet points)</label>
+            <textarea formControlName="description" rows="3"></textarea>
+          </div>
+        </div>
+      }
+    </div>
+
+    <!-- Projects -->
+    <div formArrayName="projects" class="form-section">
+      <div class="section-header">
+        <h3>Projects</h3>
+        <button type="button" class="btn-add" (click)="addProject()">+ Add</button>
+      </div>
+
+      @for (proj of projects.controls; track proj.value.id; let i = $index) {
+        <div [formGroupName]="i" class="array-item">
+          <div class="item-header">
+            <h4>Project {{ i + 1 }}</h4>
+            <button type="button" class="btn-remove" (click)="removeProject(i)">Remove</button>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Project Title</label>
+              <input type="text" formControlName="title">
+            </div>
+            <div class="form-group">
+              <label>Technologies (Comma separated)</label>
+              <input type="text" formControlName="technologies" placeholder="VueJS, .NET, Docker">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Description</label>
+            <textarea formControlName="description" rows="3"></textarea>
+          </div>
+        </div>
+      }
+    </div>
+
+    <!-- Education -->
+    <div formArrayName="education" class="form-section">
+      <div class="section-header">
+        <h3>Education</h3>
+        <button type="button" class="btn-add" (click)="addEducation()">+ Add</button>
+      </div>
+
+      @for (edu of education.controls; track edu.value.id; let i = $index) {
+        <div [formGroupName]="i" class="array-item">
+          <div class="item-header">
+            <h4>Education {{ i + 1 }}</h4>
+            <button type="button" class="btn-remove" (click)="removeEducation(i)">Remove</button>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Institution</label>
+              <input type="text" formControlName="institution">
+            </div>
+            <div class="form-group">
+              <label>Degree</label>
+              <input type="text" formControlName="degree">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Field of Study</label>
+              <input type="text" formControlName="fieldOfStudy">
+            </div>
+            <div class="form-group">
+              <label>Graduation Date</label>
+              <input type="text" formControlName="graduationDate">
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+
+    <!-- Skills -->
+    <div formArrayName="skills" class="form-section">
+      <div class="section-header">
+        <h3>Hard Skills</h3>
+        <button type="button" class="btn-add" (click)="addSkill()">+ Add</button>
+      </div>
+
+      @for (skill of skills.controls; track skill.value.id; let i = $index) {
+        <div [formGroupName]="i" class="array-item skill-item">
+          <div class="form-group">
+            <input type="text" formControlName="name" placeholder="Skill Name">
+          </div>
+          <div class="form-group">
+            <select formControlName="level">
+              <option value="Beginner">Beginner</option>
+              <option value="Intermediate">Intermediate</option>
+              <option value="Advanced">Advanced</option>
+              <option value="Expert">Expert</option>
+            </select>
+          </div>
+          <button type="button" class="btn-remove-icon" (click)="removeSkill(i)">✕</button>
+        </div>
+      }
+    </div>
+
+    <!-- Soft Skills -->
+    <div formArrayName="softSkills" class="form-section">
+      <div class="section-header">
+        <h3>Soft Skills</h3>
+        <button type="button" class="btn-add" (click)="addSoftSkill()">+ Add</button>
+      </div>
+
+      @for (soft of softSkills.controls; track soft.value.id; let i = $index) {
+        <div [formGroupName]="i" class="array-item skill-item">
+          <div class="form-group flex-1">
+            <input type="text" formControlName="name" placeholder="Résolution de problèmes">
+          </div>
+          <button type="button" class="btn-remove-icon" (click)="removeSoftSkill(i)">✕</button>
+        </div>
+      }
+    </div>
+
+    <!-- Languages -->
+    <div formArrayName="languages" class="form-section">
+      <div class="section-header">
+        <h3>Languages</h3>
+        <button type="button" class="btn-add" (click)="addLanguage()">+ Add</button>
+      </div>
+
+      @for (lang of languages.controls; track lang.value.id; let i = $index) {
+        <div [formGroupName]="i" class="array-item skill-item">
+          <div class="form-group">
+            <input type="text" formControlName="name" placeholder="Français">
+          </div>
+          <div class="form-group">
+            <input type="text" formControlName="level" placeholder="Natif">
+          </div>
+          <button type="button" class="btn-remove-icon" (click)="removeLanguage(i)">✕</button>
+        </div>
+      }
+    </div>
+
+  </form>
+</div>
