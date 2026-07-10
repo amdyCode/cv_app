@@ -78,4 +78,12 @@
       background-color: rgba(239, 68, 68, 0.1);
     }
   }
+
+  .field-error {
+    display: block;
+    color: #ef4444;
+    font-size: 0.75rem;
+    margin-top: 4px;
+    font-weight: 500;
+  }
 }

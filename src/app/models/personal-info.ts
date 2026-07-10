@@ -3,10 +3,10 @@ export interface PersonalInfo {
   jobTitle: string;
   subtitle: string;
   photoUrl: string;
-  age: string;
+  age: number | null;
   email: string;
+  phonePrefix: string;
   phone: string;
-  location: string;
   github: string;
   social: string;
   summary: string;

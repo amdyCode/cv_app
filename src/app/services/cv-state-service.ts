@@ -18,10 +18,10 @@ export class CvStateService {
       jobTitle: '',
       subtitle: '',
       photoUrl: '',
-      age: '',
+      age: null,
       email: '',
+      phonePrefix: 'FR',
       phone: '',
-      location: '',
       github: '',
       social: '',
       summary: ''
