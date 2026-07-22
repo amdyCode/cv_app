@@ -88,43 +88,219 @@
   }
 
   .json-import-section {
-    background: rgba(248, 250, 252, 0.7);
-    border: 1px dashed var(--accent-primary);
+    border: 1px solid var(--border-color);
     border-radius: var(--radius-md);
-    padding: var(--spacing-md);
-    margin-bottom: var(--spacing-lg);
+    padding: 0;
+    margin-bottom: var(--spacing-md);
+    overflow: hidden;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    border-bottom: 1px solid var(--border-color);
     
-    .section-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: var(--spacing-xs);
+    &.json-open {
+      border-color: var(--accent-primary);
+      box-shadow: 0 0 0 2px rgba(234, 179, 8, 0.15);
     }
     
-    .json-help {
-      font-size: 0.875rem;
+    .json-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 16px 20px;
+      background: rgba(248, 250, 252, 0.5);
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s ease;
+      
+      &:hover {
+        background: rgba(248, 250, 252, 0.9);
+      }
+    }
+    
+    .json-toggle-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    
+    .json-toggle-icon {
+      width: 28px;
+      height: 28px;
+      color: var(--accent-primary);
+      flex-shrink: 0;
+    }
+    
+    .json-toggle-title {
+      display: block;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      text-align: left;
+    }
+    
+    .json-toggle-subtitle {
+      display: block;
+      font-size: 0.8rem;
       color: var(--text-secondary);
-      margin-bottom: var(--spacing-md);
+      text-align: left;
+      margin-top: 2px;
+    }
+    
+    .json-chevron {
+      width: 20px;
+      height: 20px;
+      color: var(--text-secondary);
+      transition: transform 0.3s ease;
+      flex-shrink: 0;
+    }
+    
+    &.json-open .json-chevron {
+      transform: rotate(180deg);
+    }
+    
+    .json-panel-body {
+      padding: 0 20px 20px;
+      animation: slideDown 0.3s ease;
+    }
+
+    .json-step {
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+
+      &:last-of-type {
+        border-bottom: none;
+      }
+    }
+
+    .json-step-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+
+    .json-step-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--accent-primary);
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .json-step-label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .json-step-desc {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      margin-bottom: 10px;
+      padding-left: 34px;
+    }
+    
+    .btn-outline-sm {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      background: white;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      color: var(--text-primary);
+      margin-left: 34px;
+      
+      &:hover {
+        border-color: var(--accent-primary);
+        color: var(--accent-primary);
+        background: rgba(234, 179, 8, 0.05);
+      }
+      
+      &.btn-import {
+        border-color: var(--accent-primary);
+        background: var(--accent-primary);
+        color: white;
+        
+        &:hover {
+          opacity: 0.9;
+          box-shadow: 0 2px 8px rgba(234, 179, 8, 0.3);
+        }
+      }
+    }
+
+    .json-editor-wrapper {
+      position: relative;
+      background-color: #1e1e1e;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid #333;
+      margin-top: 8px;
+      border-left: 4px solid #2a2d2e;
+
+      &:focus-within {
+        border-color: var(--accent-primary);
+        box-shadow: 0 0 0 2px rgba(234, 179, 8, 0.2);
+      }
+    }
+
+    .json-highlight, .json-textarea {
+      font-family: Consolas, 'Courier New', monospace;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      padding: 16px 16px 16px 24px;
+      tab-size: 2;
+      width: 100%;
+      height: 300px;
+      border: none;
+      margin: 0;
+      box-sizing: border-box;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+
+    .json-highlight {
+      position: absolute;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      color: #d4d4d4;
+      overflow-y: auto;
+      overflow-x: hidden;
+      z-index: 1;
+
+      ::ng-deep {
+        .json-key { color: #9cdcfe; }
+        .json-string { color: #ce9178; }
+        .json-number { color: #b5cea8; }
+        .json-boolean { color: #569cd6; }
+        .json-null { color: #569cd6; }
+        .json-bracket { color: #ffd700; }
+        .json-punctuation { color: #d4d4d4; }
+      }
     }
 
     .json-textarea {
-      font-family: 'Courier New', Courier, monospace;
-      font-size: 0.875rem;
-      background-color: #1e1e1e;
-      color: #d4d4d4;
-      border: 1px solid #333;
-      border-radius: var(--radius-sm);
-      padding: var(--spacing-sm);
+      position: relative;
+      background: transparent;
+      color: transparent;
+      caret-color: #fff;
       resize: vertical;
-      width: 100%;
-      
+      z-index: 2;
+      outline: none;
+
       &::placeholder {
         color: #666;
-      }
-      &:focus {
-        border-color: var(--accent-primary);
-        box-shadow: 0 0 0 2px rgba(234, 179, 8, 0.2);
-        outline: none;
       }
     }
 
@@ -134,7 +310,7 @@
       gap: 8px;
       padding: 10px 14px;
       border-radius: var(--radius-sm);
-      font-size: 0.875rem;
+      font-size: 0.85rem;
       font-weight: 500;
       margin-top: var(--spacing-sm);
       animation: fadeIn 0.3s ease;
@@ -146,21 +322,26 @@
       }
 
       &.error {
-        background-color: rgba(239, 68, 68, 0.1);
+        background-color: rgba(239, 68, 68, 0.08);
         color: #ef4444;
-        border: 1px solid rgba(239, 68, 68, 0.3);
+        border: 1px solid rgba(239, 68, 68, 0.25);
       }
 
       &.success {
-        background-color: rgba(34, 197, 94, 0.1);
+        background-color: rgba(34, 197, 94, 0.08);
         color: #22c55e;
-        border: 1px solid rgba(34, 197, 94, 0.3);
+        border: 1px solid rgba(34, 197, 94, 0.25);
       }
     }
   }
 
   @keyframes fadeIn {
     from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-8px); }
     to { opacity: 1; transform: translateY(0); }
   }
 }

@@ -12,7 +12,7 @@ import { Language } from '../models/language';
 })
 export class CvStateService {
   private state = signal<CvData>({
-    themeColor: '#eab308',
+    themeColor: '#082ee7',
     personalInfo: {
       fullName: '',
       jobTitle: '',
