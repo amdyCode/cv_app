@@ -3,6 +3,36 @@
 
   <form [formGroup]="cvForm" class="cv-form">
 
+    <!-- JSON Import -->
+    <div class="form-section json-import-section">
+      <div class="section-header" style="margin-bottom: 8px;">
+        <h3>Import JSON</h3>
+        <button type="button" class="btn-secondary" (click)="loadJsonTemplate()">Charger le modèle JSON</button>
+      </div>
+      <p class="json-help">Collez vos données JSON ci-dessous. Le typage sera vérifié rigoureusement pour éviter les erreurs.</p>
+      
+      <div class="form-group mb-0">
+        <textarea [formControl]="jsonInputControl" rows="6" placeholder="{ ... }" class="json-textarea"></textarea>
+      </div>
+
+      @if (jsonError) {
+        <div class="json-alert error">
+          <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+          <span>{{ jsonError }}</span>
+        </div>
+      }
+      @if (jsonSuccess) {
+        <div class="json-alert success">
+          <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+          <span>Import réussi ! Le formulaire a été mis à jour avec le JSON.</span>
+        </div>
+      }
+
+      <div class="json-actions" style="margin-top: 12px;">
+        <button type="button" class="btn-primary" (click)="importJson()">Importer et valider les données</button>
+      </div>
+    </div>
+
     <!-- Theme Color -->
     <div class="form-section">
       <h3>Theme Customization</h3>
@@ -75,12 +105,18 @@
       <div class="form-row">
         <div class="form-group">
           <label for="github">GitHub</label>
-          <input id="github" type="text" formControlName="github" placeholder="john-doe">
+          <input id="github" type="url" formControlName="github" placeholder="https://github.com/johndoe">
+          @if (cvForm.controls.personalInfo.controls.github.errors?.['pattern'] && cvForm.controls.personalInfo.controls.github.touched) {
+            <span class="field-error">Le lien doit commencer par https://github.com/</span>
+          }
         </div>
 
         <div class="form-group">
-          <label for="social">Social / Handle</label>
-          <input id="social" type="text" formControlName="social" placeholder="@john-app">
+          <label for="social">LinkedIn</label>
+          <input id="social" type="url" formControlName="social" placeholder="https://linkedin.com/in/johndoe">
+          @if (cvForm.controls.personalInfo.controls.social.errors?.['pattern'] && cvForm.controls.personalInfo.controls.social.touched) {
+            <span class="field-error">Le lien doit commencer par https://linkedin.com/</span>
+          }
         </div>
       </div>
 
