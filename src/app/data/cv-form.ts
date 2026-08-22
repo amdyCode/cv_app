@@ -13,7 +13,6 @@ export const DEFAULT_JSON_TEMPLATE = JSON.stringify({
     fullName: "John Doe",
     jobTitle: "Ingénieur Logiciel",
     subtitle: "Recherche de nouvelles opportunités",
-    photoUrl: "https://i.pravatar.cc/300",
     age: 28,
     email: "john.doe@example.com",
     phonePrefix: "FR",

@@ -194,6 +194,17 @@ export class CvForm implements OnInit, OnDestroy {
     }
   }
 
+  onPhotoSelected(event: Event) {
+    const file = (event.target as HTMLInputElement).files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.cvForm.controls.personalInfo.controls.photoUrl.setValue(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
   loadJsonTemplate() {
     this.jsonInputControl.setValue(this.DEFAULT_JSON_TEMPLATE);
     this.jsonError = '';

@@ -109,8 +109,8 @@
         </div>
 
         <div class="form-group">
-          <label for="photoUrl">Photo URL</label>
-          <input id="photoUrl" type="text" formControlName="photoUrl" placeholder="https://example.com/photo.jpg">
+          <label for="photoFile">Photo</label>
+          <input id="photoFile" type="file" accept="image/*" (change)="onPhotoSelected($event)">
         </div>
       </div>
 

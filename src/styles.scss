@@ -59,6 +59,12 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+@media print {
+  html, body {
+    background-color: white !important;
+  }
+}
+
 /* Utilities */
 .glass-panel {
   background: var(--glass-bg);
