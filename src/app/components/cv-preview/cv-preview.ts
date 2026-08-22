@@ -25,6 +25,14 @@ export class CvPreview {
   softSkills = this.cvState.softSkills;
   languages = this.cvState.languages;
 
+  hasContent = computed(() => {
+    return !!this.personalInfo().fullName?.trim() ||
+      !!this.personalInfo().jobTitle?.trim() ||
+      this.experiences().length > 0 ||
+      this.education().length > 0 ||
+      this.skills().length > 0;
+  });
+  
   phoneDisplay = computed(() => {
     const info = this.personalInfo();
     if (!info.phone) return '';

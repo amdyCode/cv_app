@@ -1,11 +1,15 @@
-<button class="download-fab" (click)="downloadPdf()" [disabled]="isExporting()" [class.loading]="isExporting()" title="Télécharger PDF">
-  @if (isExporting()) {
-    <svg class="spinner" viewBox="0 0 50 50"><circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle></svg>
-  } @else {
-    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-  }
-</button>
-
+<div class="preview-layout">
+  <button
+    class="download-btn"
+    (click)="downloadPdf()"
+    [disabled]="isExporting() || !hasContent()"
+    [class.loading]="isExporting()">
+    @if (isExporting()) {
+      <span>Génération...</span>
+    } @else {
+      <span>Télécharger le PDF</span>
+    }
+  </button>
 <div class="cv-preview-container" [style.--accent-color]="themeColor()">
 
   <!-- Header : photo + identité + contacts, en ligne -->
@@ -172,4 +176,5 @@
     </div>
 
   </div>
+</div>
 </div>

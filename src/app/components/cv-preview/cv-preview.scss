@@ -1,10 +1,21 @@
+:host {
+  display: block;
+  padding: 30px 0 60px 0;
+}
+
+.preview-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
 .cv-preview-container {
   /* A4 Proportions */
   width: 210mm;
   min-height: 297mm;
   background-color: white;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-  margin: 0 auto;
   font-family: 'Inter', sans-serif;
   color: #191c1e;
   display: flex;
@@ -14,16 +25,6 @@
 
   /* Default accent color */
   --accent-color: #082ee7;
-
-  &::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 12px;
-    background-color: var(--accent-color);
-  }
 
   @media print {
     box-shadow: none;
@@ -354,32 +355,30 @@
   }
 }
 
-/* FAB Download Button */
-.download-fab {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background-color: var(--accent-color);
+/* Download Button */
+.download-btn {
+  background-color: #10b981; /* Joli Vert émeraude */
   color: white;
   border: none;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 10px;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
   cursor: pointer;
-  z-index: 100;
   transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
 
   &:hover:not(:disabled) {
-    transform: translateY(-2px) scale(1.05);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4);
+    background-color: #059669; /* Vert plus foncé au survol */
   }
 
   &:active:not(:disabled) {
-    transform: translateY(0) scale(0.95);
+    transform: translateY(0);
   }
 
   &:disabled {
@@ -388,13 +387,13 @@
   }
 
   .icon {
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
   }
 
   .spinner {
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
     animation: rotate 2s linear infinite;
     
     .path {
