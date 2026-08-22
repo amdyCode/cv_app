@@ -1,6 +1,7 @@
-import { Component, ChangeDetectionStrategy, inject, computed } from '@angular/core';
-import { CvStateService } from '../../services/cv-state-service';
+import { Component, ChangeDetectionStrategy, inject, computed, ElementRef, signal } from '@angular/core';
+import { CvStateService } from '../../services/cv-state/cv-state-service';
 import { getCountryCallingCode, CountryCode } from 'libphonenumber-js';
+import { CvExportService } from '../../services/cv-export/cv-export-service';
 
 @Component({
   selector: 'app-cv-preview',
@@ -11,6 +12,9 @@ import { getCountryCallingCode, CountryCode } from 'libphonenumber-js';
 })
 export class CvPreview {
   cvState = inject(CvStateService);
+  cvExport = inject(CvExportService);
+  elementRef = inject(ElementRef);
+  isExporting = signal(false);
 
   themeColor = this.cvState.themeColor;
   personalInfo = this.cvState.personalInfo;
@@ -41,5 +45,16 @@ export class CvPreview {
     if (!url) return '';
     if (url.startsWith('http://') || url.startsWith('https://')) return url;
     return `https://${url}`;
+  }
+
+  async downloadPdf() {
+    this.isExporting.set(true);
+    const container = this.elementRef.nativeElement.querySelector('.cv-preview-container');
+    if (container) {
+      const name = this.personalInfo().fullName || 'Export';
+      const fileName = `CV_${name.replace(/\s+/g, '_')}.pdf`;
+      await this.cvExport.exportToPdf(container as HTMLElement, fileName);
+    }
+    this.isExporting.set(false);
   }
 }

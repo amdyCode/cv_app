@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, inject, OnInit, OnDestroy, computed } from '@angular/core';
 import { FormGroup, ReactiveFormsModule, FormArray, FormControl, Validators } from '@angular/forms';
-import { CvStateService } from '../../services/cv-state-service';
+import { CvStateService } from '../../services/cv-state/cv-state-service';
 import { Subject, takeUntil } from 'rxjs';
 import { AsYouType, CountryCode, getCountries, getCountryCallingCode, getExampleNumber } from 'libphonenumber-js';
 import examples from 'libphonenumber-js/mobile/examples';

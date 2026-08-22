@@ -353,3 +353,64 @@
     width: 100%;
   }
 }
+
+/* FAB Download Button */
+.download-fab {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 100;
+  transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+
+  &:hover:not(:disabled) {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0) scale(0.95);
+  }
+
+  &:disabled {
+    opacity: 0.8;
+    cursor: not-allowed;
+  }
+
+  .icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .spinner {
+    width: 24px;
+    height: 24px;
+    animation: rotate 2s linear infinite;
+    
+    .path {
+      stroke: white;
+      stroke-linecap: round;
+      animation: dash 1.5s ease-in-out infinite;
+    }
+  }
+}
+
+@keyframes rotate {
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes dash {
+  0% { stroke-dasharray: 1, 150; stroke-dashoffset: 0; }
+  50% { stroke-dasharray: 90, 150; stroke-dashoffset: -35; }
+  100% { stroke-dasharray: 90, 150; stroke-dashoffset: -124; }
+}

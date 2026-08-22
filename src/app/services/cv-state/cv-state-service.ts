@@ -1,11 +1,11 @@
 import { computed, Injectable, signal } from '@angular/core';
-import { CvData } from '../models/cv';
-import { PersonalInfo } from '../models/personal-info';
-import { Experience } from '../models/experience';
-import { Project } from '../models/project';
-import { Education } from '../models/education';
-import { Skill, SoftSkill } from '../models/skill';
-import { Language } from '../models/language';
+import { CvData } from '../../models/cv';
+import { Experience } from '../../models/experience';
+import { PersonalInfo } from '../../models/personal-info';
+import { Project } from '../../models/project';
+import { Education } from '../../models/education';
+import { Skill, SoftSkill } from '../../models/skill';
+import { Language } from '../../models/language';
 
 @Injectable({
   providedIn: 'root',
