@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
+import { environment } from '../../../environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CvExportService {
-  private apiUrl = '/api/generate-pdf';
+  private apiUrl = `${environment.apiUrl}/generate-pdf`;
 
   constructor() {}
 
