@@ -32,7 +32,7 @@ export class CvPreview {
       this.education().length > 0 ||
       this.skills().length > 0;
   });
-  
+
   phoneDisplay = computed(() => {
     const info = this.personalInfo();
     if (!info.phone) return '';
@@ -53,6 +53,15 @@ export class CvPreview {
     if (!url) return '';
     if (url.startsWith('http://') || url.startsWith('https://')) return url;
     return `https://${url}`;
+  }
+
+  getProjectLinkLabel(url: string | undefined): string {
+    if (!url) return '';
+    const normalized = this.normalizeUrl(url);
+    if (normalized.includes('github.com')) return 'Voir sur GitHub';
+    if (normalized.includes('play.google.com')) return 'Voir sur Play Store';
+    if (normalized.includes('apps.apple.com')) return 'Voir sur App Store';
+    return 'Voir le projet';
   }
 
   async downloadPdf() {

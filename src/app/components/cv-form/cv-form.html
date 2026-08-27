@@ -7,70 +7,94 @@
     <div class="form-section json-import-section" [class.json-open]="jsonPanelOpen">
       <button type="button" class="json-toggle" (click)="jsonPanelOpen = !jsonPanelOpen">
         <div class="json-toggle-left">
-          <svg class="json-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><line x1="9" y1="15" x2="15" y2="15"></line></svg>
+          <svg class="json-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="12" y1="18" x2="12" y2="12"></line>
+            <line x1="9" y1="15" x2="15" y2="15"></line>
+          </svg>
           <div>
             <span class="json-toggle-title">Remplissage rapide via JSON</span>
             <span class="json-toggle-subtitle">Collez un JSON pour pré-remplir tous les champs d'un coup</span>
           </div>
         </div>
-        <svg class="json-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        <svg class="json-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
       </button>
 
       @if (jsonPanelOpen) {
-        <div class="json-panel-body">
+      <div class="json-panel-body">
 
-          <!-- Step 1 -->
-          <div class="json-step">
-            <div class="json-step-header">
-              <span class="json-step-number">1</span>
-              <span class="json-step-label">Obtenir le modèle</span>
-            </div>
-            <p class="json-step-desc">Cliquez ci-dessous pour charger un JSON d'exemple avec tous les champs et le bon typage.</p>
-            <button type="button" class="btn-outline-sm" (click)="loadJsonTemplate()">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
-              Charger le modèle JSON
-            </button>
+        <!-- Step 1 -->
+        <div class="json-step">
+          <div class="json-step-header">
+            <span class="json-step-number">1</span>
+            <span class="json-step-label">Obtenir le modèle</span>
           </div>
-
-          <!-- Step 2 -->
-          <div class="json-step">
-            <div class="json-step-header">
-              <span class="json-step-number">2</span>
-              <span class="json-step-label">Modifier et coller</span>
-            </div>
-            <p class="json-step-desc">Modifiez les valeurs du modèle avec vos informations.</p>
-            <div class="json-editor-wrapper">
-              <pre class="json-highlight" aria-hidden="true"><code [innerHTML]="highlightedJson()"></code></pre>
-              <textarea [formControl]="jsonInputControl" rows="14" placeholder='Cliquez "Charger le modèle JSON" pour commencer...' class="json-textarea" spellcheck="false" (scroll)="onJsonScroll($event)"></textarea>
-            </div>
-          </div>
-
-          <!-- Step 3 -->
-          <div class="json-step">
-            <div class="json-step-header">
-              <span class="json-step-number">3</span>
-              <span class="json-step-label">Valider et importer</span>
-            </div>
-            <p class="json-step-desc">Le typage de chaque champ sera vérifié avant l'import.</p>
-            <button type="button" class="btn-outline-sm btn-import" (click)="importJson()">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><polyline points="16 16 12 12 8 16"></polyline><line x1="12" y1="12" x2="12" y2="21"></line><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"></path></svg>
-              Importer et valider les données
-            </button>
-          </div>
-
-          @if (jsonError) {
-            <div class="json-alert error">
-              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-              <span>{{ jsonError }}</span>
-            </div>
-          }
-          @if (jsonSuccess) {
-            <div class="json-alert success">
-              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-              <span>Import réussi ! Le formulaire a été mis à jour.</span>
-            </div>
-          }
+          <p class="json-step-desc">Cliquez ci-dessous pour charger un JSON d'exemple avec tous les champs et le bon
+            typage.</p>
+          <button type="button" class="btn-outline-sm" (click)="loadJsonTemplate()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+            </svg>
+            Charger le modèle JSON
+          </button>
         </div>
+
+        <!-- Step 2 -->
+        <div class="json-step">
+          <div class="json-step-header">
+            <span class="json-step-number">2</span>
+            <span class="json-step-label">Modifier et coller</span>
+          </div>
+          <p class="json-step-desc">Modifiez les valeurs du modèle avec vos informations.</p>
+          <div class="json-editor-wrapper">
+            <pre class="json-highlight" aria-hidden="true"><code [innerHTML]="highlightedJson()"></code></pre>
+            <textarea [formControl]="jsonInputControl" rows="14"
+              placeholder='Cliquez "Charger le modèle JSON" pour commencer...' class="json-textarea" spellcheck="false"
+              (scroll)="onJsonScroll($event)"></textarea>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="json-step">
+          <div class="json-step-header">
+            <span class="json-step-number">3</span>
+            <span class="json-step-label">Valider et importer</span>
+          </div>
+          <p class="json-step-desc">Le typage de chaque champ sera vérifié avant l'import.</p>
+          <button type="button" class="btn-outline-sm btn-import" (click)="importJson()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+              <polyline points="16 16 12 12 8 16"></polyline>
+              <line x1="12" y1="12" x2="12" y2="21"></line>
+              <path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"></path>
+            </svg>
+            Importer et valider les données
+          </button>
+        </div>
+
+        @if (jsonError) {
+        <div class="json-alert error">
+          <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+          <span>{{ jsonError }}</span>
+        </div>
+        }
+        @if (jsonSuccess) {
+        <div class="json-alert success">
+          <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+          </svg>
+          <span>Import réussi ! Le formulaire a été mis à jour.</span>
+        </div>
+        }
+      </div>
       }
     </div>
 
@@ -132,13 +156,14 @@
           <div style="display: flex; gap: 8px;">
             <select formControlName="phonePrefix" style="flex: 0 0 auto; width: 200px;">
               @for (country of countries; track country.code) {
-                <option [value]="country.code">{{ country.flag }} {{ country.dialCode }} ({{ country.name }})</option>
+              <option [value]="country.code">{{ country.flag }} {{ country.dialCode }} ({{ country.name }})</option>
               }
             </select>
-            <input id="phone" type="tel" formControlName="phone" [placeholder]="phonePlaceholder" (input)="onPhoneInput($event)" style="flex: 1;">
+            <input id="phone" type="tel" formControlName="phone" [placeholder]="phonePlaceholder"
+              (input)="onPhoneInput($event)" style="flex: 1;">
           </div>
           @if (phoneError) {
-            <span class="field-error">{{ phoneError }}</span>
+          <span class="field-error">{{ phoneError }}</span>
           }
         </div>
       </div>
@@ -147,23 +172,26 @@
         <div class="form-group">
           <label for="github">GitHub</label>
           <input id="github" type="url" formControlName="github" placeholder="https://github.com/johndoe">
-          @if (cvForm.controls.personalInfo.controls.github.errors?.['pattern'] && cvForm.controls.personalInfo.controls.github.touched) {
-            <span class="field-error">Le lien doit commencer par https://github.com/</span>
+          @if (cvForm.controls.personalInfo.controls.github.errors?.['pattern'] &&
+          cvForm.controls.personalInfo.controls.github.touched) {
+          <span class="field-error">Le lien doit commencer par https://github.com/</span>
           }
         </div>
 
         <div class="form-group">
           <label for="social">LinkedIn</label>
           <input id="social" type="url" formControlName="social" placeholder="https://linkedin.com/in/johndoe">
-          @if (cvForm.controls.personalInfo.controls.social.errors?.['pattern'] && cvForm.controls.personalInfo.controls.social.touched) {
-            <span class="field-error">Le lien doit commencer par https://linkedin.com/</span>
+          @if (cvForm.controls.personalInfo.controls.social.errors?.['pattern'] &&
+          cvForm.controls.personalInfo.controls.social.touched) {
+          <span class="field-error">Le lien doit commencer par https://linkedin.com/</span>
           }
         </div>
       </div>
 
       <div class="form-group">
         <label for="summary">Summary</label>
-        <textarea id="summary" formControlName="summary" rows="4" placeholder="A brief summary about yourself..."></textarea>
+        <textarea id="summary" formControlName="summary" rows="4"
+          placeholder="A brief summary about yourself..."></textarea>
       </div>
     </div>
 
@@ -175,39 +203,39 @@
       </div>
 
       @for (exp of experiences.controls; track exp.value.id; let i = $index) {
-        <div [formGroupName]="i" class="array-item">
-          <div class="item-header">
-            <h4>Experience {{ i + 1 }}</h4>
-            <button type="button" class="btn-remove" (click)="removeExperience(i)">Remove</button>
-          </div>
+      <div [formGroupName]="i" class="array-item">
+        <div class="item-header">
+          <h4>Experience {{ i + 1 }}</h4>
+          <button type="button" class="btn-remove" (click)="removeExperience(i)">Remove</button>
+        </div>
 
-          <div class="form-row">
-            <div class="form-group">
-              <label>Company</label>
-              <input type="text" formControlName="company">
-            </div>
-            <div class="form-group">
-              <label>Position</label>
-              <input type="text" formControlName="position">
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group">
-              <label>Start Date</label>
-              <input type="date" formControlName="startDate">
-            </div>
-            <div class="form-group">
-              <label>End Date</label>
-              <input type="date" formControlName="endDate">
-            </div>
-          </div>
-
+        <div class="form-row">
           <div class="form-group">
-            <label>Description (Use newlines for bullet points)</label>
-            <textarea formControlName="description" rows="3"></textarea>
+            <label>Company</label>
+            <input type="text" formControlName="company">
+          </div>
+          <div class="form-group">
+            <label>Position</label>
+            <input type="text" formControlName="position">
           </div>
         </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Start Date</label>
+            <input type="date" formControlName="startDate">
+          </div>
+          <div class="form-group">
+            <label>End Date</label>
+            <input type="date" formControlName="endDate">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Description (Use newlines for bullet points)</label>
+          <textarea formControlName="description" rows="3"></textarea>
+        </div>
+      </div>
       }
     </div>
 
@@ -219,28 +247,34 @@
       </div>
 
       @for (proj of projects.controls; track proj.value.id; let i = $index) {
-        <div [formGroupName]="i" class="array-item">
-          <div class="item-header">
-            <h4>Project {{ i + 1 }}</h4>
-            <button type="button" class="btn-remove" (click)="removeProject(i)">Remove</button>
-          </div>
+      <div [formGroupName]="i" class="array-item">
+        <div class="item-header">
+          <h4>Project {{ i + 1 }}</h4>
+          <button type="button" class="btn-remove" (click)="removeProject(i)">Remove</button>
+        </div>
 
-          <div class="form-row">
-            <div class="form-group">
-              <label>Project Title</label>
-              <input type="text" formControlName="title">
-            </div>
-            <div class="form-group">
-              <label>Technologies (Comma separated)</label>
-              <input type="text" formControlName="technologies" placeholder="VueJS, .NET, Docker">
-            </div>
-          </div>
-
+        <div class="form-row">
           <div class="form-group">
-            <label>Description</label>
-            <textarea formControlName="description" rows="3"></textarea>
+            <label>Project Title</label>
+            <input type="text" formControlName="title">
+          </div>
+          <div class="form-group">
+            <label>Technologies (Comma separated)</label>
+            <input type="text" formControlName="technologies" placeholder="VueJS, .NET, Docker">
           </div>
         </div>
+
+        <div class="form-group">
+          <label>Lien (GitHub, Play Store, App Store...)</label>
+          <input type="url" formControlName="link"
+            placeholder="https://github.com/toi/projet ou https://play.google.com/store/apps/details?id=...">
+        </div>
+
+        <div class="form-group">
+          <label>Description</label>
+          <textarea formControlName="description" rows="3"></textarea>
+        </div>
+      </div>
       }
     </div>
 
@@ -252,34 +286,34 @@
       </div>
 
       @for (edu of education.controls; track edu.value.id; let i = $index) {
-        <div [formGroupName]="i" class="array-item">
-          <div class="item-header">
-            <h4>Education {{ i + 1 }}</h4>
-            <button type="button" class="btn-remove" (click)="removeEducation(i)">Remove</button>
-          </div>
+      <div [formGroupName]="i" class="array-item">
+        <div class="item-header">
+          <h4>Education {{ i + 1 }}</h4>
+          <button type="button" class="btn-remove" (click)="removeEducation(i)">Remove</button>
+        </div>
 
-          <div class="form-row">
-            <div class="form-group">
-              <label>Institution</label>
-              <input type="text" formControlName="institution">
-            </div>
-            <div class="form-group">
-              <label>Degree</label>
-              <input type="text" formControlName="degree">
-            </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Institution</label>
+            <input type="text" formControlName="institution">
           </div>
-
-          <div class="form-row">
-            <div class="form-group">
-              <label>Field of Study</label>
-              <input type="text" formControlName="fieldOfStudy">
-            </div>
-            <div class="form-group">
-              <label>Graduation Date</label>
-              <input type="date" formControlName="graduationDate">
-            </div>
+          <div class="form-group">
+            <label>Degree</label>
+            <input type="text" formControlName="degree">
           </div>
         </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Field of Study</label>
+            <input type="text" formControlName="fieldOfStudy">
+          </div>
+          <div class="form-group">
+            <label>Graduation Date</label>
+            <input type="date" formControlName="graduationDate">
+          </div>
+        </div>
+      </div>
       }
     </div>
 
@@ -291,20 +325,20 @@
       </div>
 
       @for (skill of skills.controls; track skill.value.id; let i = $index) {
-        <div [formGroupName]="i" class="array-item skill-item">
-          <div class="form-group">
-            <input type="text" formControlName="name" placeholder="Skill Name">
-          </div>
-          <div class="form-group">
-            <select formControlName="level">
-              <option value="Beginner">Beginner</option>
-              <option value="Intermediate">Intermediate</option>
-              <option value="Advanced">Advanced</option>
-              <option value="Expert">Expert</option>
-            </select>
-          </div>
-          <button type="button" class="btn-remove-icon" (click)="removeSkill(i)">✕</button>
+      <div [formGroupName]="i" class="array-item skill-item">
+        <div class="form-group">
+          <input type="text" formControlName="name" placeholder="Skill Name">
         </div>
+        <div class="form-group">
+          <select formControlName="level">
+            <option value="Beginner">Beginner</option>
+            <option value="Intermediate">Intermediate</option>
+            <option value="Advanced">Advanced</option>
+            <option value="Expert">Expert</option>
+          </select>
+        </div>
+        <button type="button" class="btn-remove-icon" (click)="removeSkill(i)">✕</button>
+      </div>
       }
     </div>
 
@@ -316,12 +350,12 @@
       </div>
 
       @for (soft of softSkills.controls; track soft.value.id; let i = $index) {
-        <div [formGroupName]="i" class="array-item skill-item">
-          <div class="form-group flex-1">
-            <input type="text" formControlName="name" placeholder="Résolution de problèmes">
-          </div>
-          <button type="button" class="btn-remove-icon" (click)="removeSoftSkill(i)">✕</button>
+      <div [formGroupName]="i" class="array-item skill-item">
+        <div class="form-group flex-1">
+          <input type="text" formControlName="name" placeholder="Résolution de problèmes">
         </div>
+        <button type="button" class="btn-remove-icon" (click)="removeSoftSkill(i)">✕</button>
+      </div>
       }
     </div>
 
@@ -333,15 +367,15 @@
       </div>
 
       @for (lang of languages.controls; track lang.value.id; let i = $index) {
-        <div [formGroupName]="i" class="array-item skill-item">
-          <div class="form-group">
-            <input type="text" formControlName="name" placeholder="Français">
-          </div>
-          <div class="form-group">
-            <input type="text" formControlName="level" placeholder="Natif">
-          </div>
-          <button type="button" class="btn-remove-icon" (click)="removeLanguage(i)">✕</button>
+      <div [formGroupName]="i" class="array-item skill-item">
+        <div class="form-group">
+          <input type="text" formControlName="name" placeholder="Français">
         </div>
+        <div class="form-group">
+          <input type="text" formControlName="level" placeholder="Natif">
+        </div>
+        <button type="button" class="btn-remove-icon" (click)="removeLanguage(i)">✕</button>
+      </div>
       }
     </div>
 

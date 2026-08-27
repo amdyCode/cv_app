@@ -116,11 +116,11 @@ export class CvForm implements OnInit, OnDestroy {
   initCountries() {
     const codes = getCountries();
     const displayNames = new Intl.DisplayNames(['fr'], { type: 'region' });
-    
+
     this.countries = codes.map(country => {
       let name: string = country;
-      try { name = displayNames.of(country) || country; } catch(e) {}
-      
+      try { name = displayNames.of(country) || country; } catch (e) { }
+
       return {
         code: country,
         dialCode: `+${getCountryCallingCode(country)}`,
@@ -273,7 +273,8 @@ export class CvForm implements OnInit, OnDestroy {
       id: new FormControl<string | null>(crypto.randomUUID()),
       title: new FormControl<string | null>(''),
       technologies: new FormControl<string | null>(''),
-      description: new FormControl<string | null>('')
+      description: new FormControl<string | null>(''),
+      link: new FormControl<string | null>('')
     }));
   }
 

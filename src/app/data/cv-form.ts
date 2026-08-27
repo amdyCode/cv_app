@@ -34,7 +34,8 @@ export const DEFAULT_JSON_TEMPLATE = JSON.stringify({
     {
       title: "Générateur de CV",
       technologies: "Angular, SCSS",
-      description: "Application de création de CV dynamiques."
+      description: "Application de création de CV dynamiques.",
+      link: "https://github.com/johndoe/cv-generator"
     }
   ],
   education: [
@@ -61,24 +62,24 @@ export const DEFAULT_JSON_TEMPLATE = JSON.stringify({
 
 
 export const cvForm = new FormGroup<CvFormModel>({
-    themeColor: new FormControl<string | null>('#082ee7'),
-    personalInfo: new FormGroup<PersonalInfoForm>({
-      fullName: new FormControl<string | null>(''),
-      jobTitle: new FormControl<string | null>(''),
-      subtitle: new FormControl<string | null>(''),
-      photoUrl: new FormControl<string | null>(''),
-      age: new FormControl<number | null>(null),
-      email: new FormControl<string | null>(''),
-      phonePrefix: new FormControl<string | null>('FR'),
-      phone: new FormControl<string | null>(''),
-      github: new FormControl<string | null>('', [Validators.pattern(/^https:\/\/github\.com\/.+/)]),
-      social: new FormControl<string | null>('', [Validators.pattern(/^https:\/\/(www\.)?linkedin\.com\/.+/)]),
-      summary: new FormControl<string | null>('')
-    }),
-    experiences: new FormArray<FormGroup<ExperienceForm>>([]),
-    projects: new FormArray<FormGroup<ProjectForm>>([]),
-    education: new FormArray<FormGroup<EducationForm>>([]),
-    skills: new FormArray<FormGroup<SkillForm>>([]),
-    softSkills: new FormArray<FormGroup<SoftSkillForm>>([]),
-    languages: new FormArray<FormGroup<LanguageForm>>([])
-  });
+  themeColor: new FormControl<string | null>('#082ee7'),
+  personalInfo: new FormGroup<PersonalInfoForm>({
+    fullName: new FormControl<string | null>(''),
+    jobTitle: new FormControl<string | null>(''),
+    subtitle: new FormControl<string | null>(''),
+    photoUrl: new FormControl<string | null>(''),
+    age: new FormControl<number | null>(null),
+    email: new FormControl<string | null>(''),
+    phonePrefix: new FormControl<string | null>('FR'),
+    phone: new FormControl<string | null>(''),
+    github: new FormControl<string | null>('', [Validators.pattern(/^https:\/\/github\.com\/.+/)]),
+    social: new FormControl<string | null>('', [Validators.pattern(/^https:\/\/(www\.)?linkedin\.com\/.+/)]),
+    summary: new FormControl<string | null>('')
+  }),
+  experiences: new FormArray<FormGroup<ExperienceForm>>([]),
+  projects: new FormArray<FormGroup<ProjectForm>>([]),
+  education: new FormArray<FormGroup<EducationForm>>([]),
+  skills: new FormArray<FormGroup<SkillForm>>([]),
+  softSkills: new FormArray<FormGroup<SoftSkillForm>>([]),
+  languages: new FormArray<FormGroup<LanguageForm>>([])
+});

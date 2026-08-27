@@ -11,7 +11,6 @@
 }
 
 .cv-preview-container {
-  /* A4 Proportions */
   width: 210mm;
   min-height: 297mm;
   background-color: white;
@@ -23,7 +22,6 @@
   position: relative;
   overflow: hidden;
 
-  /* Default accent color */
   --accent-color: #082ee7;
 
   @media print {
@@ -38,12 +36,23 @@
 .cv-top-header {
   width: 100%;
   background-color: #ffffff;
-  padding: 32px 40px 24px 44px;
+  padding: 32px 40px 24px 48px;
   border-bottom: 1px solid #e5e7eb;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
   gap: 24px;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 6px;
+    background-color: var(--accent-color);
+  }
 }
 
 .header-photo {
@@ -122,6 +131,7 @@
       color: var(--accent-color);
       text-decoration: none;
       font-weight: 600;
+
       &:hover {
         text-decoration: underline;
       }
@@ -273,6 +283,28 @@
     line-height: 1.5;
     margin: 6px 0 0 0;
   }
+
+  .project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--accent-color);
+    text-decoration: none;
+    width: fit-content;
+
+    .icon {
+      width: 13px;
+      height: 13px;
+      flex-shrink: 0;
+    }
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
 
 /* Bullet lists (experience descriptions & soft skills) */
@@ -361,7 +393,7 @@
 
 /* Download Button */
 .download-btn {
-  background-color: #10b981; /* Joli Vert émeraude */
+  background-color: #10b981;
   color: white;
   border: none;
   padding: 12px 24px;
@@ -378,7 +410,8 @@
   &:hover:not(:disabled) {
     transform: translateY(-2px);
     box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4);
-    background-color: #059669; /* Vert plus foncé au survol */
+    background-color: #059669;
+    /* Vert plus foncé au survol */
   }
 
   &:active:not(:disabled) {
@@ -399,7 +432,7 @@
     width: 20px;
     height: 20px;
     animation: rotate 2s linear infinite;
-    
+
     .path {
       stroke: white;
       stroke-linecap: round;
@@ -409,11 +442,32 @@
 }
 
 @keyframes rotate {
-  100% { transform: rotate(360deg); }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes dash {
-  0% { stroke-dasharray: 1, 150; stroke-dashoffset: 0; }
-  50% { stroke-dasharray: 90, 150; stroke-dashoffset: -35; }
-  100% { stroke-dasharray: 90, 150; stroke-dashoffset: -124; }
+  0% {
+    stroke-dasharray: 1, 150;
+    stroke-dashoffset: 0;
+  }
+
+  50% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -35;
+  }
+
+  100% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -124;
+  }
+}
+
+@page {
+  margin: 15mm 0;
+}
+
+@page :first {
+  margin-top: 0;
 }

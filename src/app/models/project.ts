@@ -5,6 +5,7 @@ export interface Project {
   title: string;
   technologies: string;
   description: string;
+  link: string;
 }
 
 export interface ProjectForm {
@@ -12,4 +13,5 @@ export interface ProjectForm {
   title: FormControl<string | null>;
   technologies: FormControl<string | null>;
   description: FormControl<string | null>;
+  link: FormControl<string | null>;
 }

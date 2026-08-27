@@ -40,7 +40,7 @@ export function syntaxHighlight(json: string): string {
 export function parseAndValidateJson(jsonString: string, validCountryCodes: string[]): { success: boolean; data?: any; error?: string } {
   try {
     const data = JSON.parse(jsonString);
-    
+
     if (typeof data !== 'object' || data === null) {
       throw new Error("Le JSON doit être un objet.");
     }
@@ -72,9 +72,9 @@ export function parseAndValidateJson(jsonString: string, validCountryCodes: stri
         const formatter = new AsYouType(countryCode);
         const formatted = formatter.input(rawPhone);
         const phoneNumber = formatter.getNumber();
-        
+
         if (!phoneNumber || !phoneNumber.isValid()) {
-           throw new Error(`Le numéro de téléphone n'est pas valide pour la région ${countryCode}.`);
+          throw new Error(`Le numéro de téléphone n'est pas valide pour la région ${countryCode}.`);
         }
         pInfo.phone = formatted;
       }
@@ -84,7 +84,7 @@ export function parseAndValidateJson(jsonString: string, validCountryCodes: stri
           throw new Error("Erreur de format : personalInfo.github doit commencer par 'https://github.com/'.");
         }
       }
-      
+
       if (pInfo.social) {
         if (typeof pInfo.social !== 'string' || (!pInfo.social.startsWith('https://linkedin.com/') && !pInfo.social.startsWith('https://www.linkedin.com/'))) {
           throw new Error("Erreur de format : personalInfo.social doit commencer par 'https://linkedin.com/' ou 'https://www.linkedin.com/'.");
@@ -150,11 +150,21 @@ export function populateFormArrays(cvForm: FormGroup<CvFormModel>, data: any) {
   });
 
   (data.projects || []).forEach((proj: any) => {
+    if (proj.link !== undefined && proj.link !== null && proj.link !== '') {
+    if (typeof proj.link !== 'string') {
+      throw new Error(`Erreur de type : projects[].link doit être du texte (ex: "${proj.title || 'un projet'}").`);
+    }
+    // Format souple : http(s):// obligatoire si renseigné, pas de domaine imposé
+    if (!/^https?:\/\/.+/.test(proj.link)) {
+      throw new Error(`Erreur de format : le lien du projet "${proj.title || ''}" doit commencer par http:// ou https://.`);
+    }
+  }
     projects.push(new FormGroup<ProjectForm>({
       id: new FormControl<string | null>(proj.id || crypto.randomUUID()),
       title: new FormControl<string | null>(proj.title || ''),
       technologies: new FormControl<string | null>(proj.technologies || ''),
-      description: new FormControl<string | null>(proj.description || '')
+      description: new FormControl<string | null>(proj.description || ''),
+      link: new FormControl<string | null>(proj.link || '')
     }));
   });
 
